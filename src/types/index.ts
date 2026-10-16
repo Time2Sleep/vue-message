@@ -1,12 +1,12 @@
-import type { Ref } from "vue";
+import type { Ref } from 'vue';
 
-type MessageType = "success" | "error" | "warning" | "info";
+type MessageType = 'success' | 'error' | 'warning' | 'info';
 
 export interface Notification {
   id: string;
   type: MessageType;
   content: string;
-  options: MessageOptions;
+  duration: number;
 }
 
 export interface RawNotification {
