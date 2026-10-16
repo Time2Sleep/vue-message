@@ -14,8 +14,8 @@ export const notificationManager: NotificationManager = (() => {
     const duration = raw.duration ?? 3000;
 
     notifications.value.push({
-      id,
       ...raw,
+      id,
       duration,
     });
 
