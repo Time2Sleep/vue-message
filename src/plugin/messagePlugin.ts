@@ -6,6 +6,7 @@ let host: HTMLElement | null = null;
 
 export const messagePlugin: Plugin = {
   install: () => {
+    if (typeof document === 'undefined') return;
     if (messageApp) return;
 
     host = document.createElement('div');
