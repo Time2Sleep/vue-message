@@ -15,16 +15,19 @@ describe('Message API', () => {
     expect(notification?.duration).toBe(3000);
   });
 
-  test.each(['success', 'error', 'warning', 'info'])('Message api creates notification with type', (type) => {
-    const id = message[type as keyof MessageApi](`${type} content`);
+  test.each(['success', 'error', 'warning', 'info', 'loading'])(
+    'Message api creates notification with type',
+    (type) => {
+      const id = message[type as keyof MessageApi](`${type} content`);
 
-    const notification = notificationManager.notifications.value.find((notification) => notification.id === id);
+      const notification = notificationManager.notifications.value.find((notification) => notification.id === id);
 
-    expect(notification).toBeDefined();
-    expect(notification?.content).toBe(`${type} content`);
-    expect(notification?.type).toBe(type);
-    expect(notification?.duration).toBe(3000);
-  });
+      expect(notification).toBeDefined();
+      expect(notification?.content).toBe(`${type} content`);
+      expect(notification?.type).toBe(type);
+      expect(notification?.duration).toBe(3000);
+    },
+  );
 
   test('Returns notification ID', () => {
     const id = message.success('Test');

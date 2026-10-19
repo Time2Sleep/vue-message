@@ -25,9 +25,13 @@ describe('Message Container', () => {
 
     expect(document.body.textContent).toContain('hello world');
     expect(document.body.textContent).toContain('second message');
-    expect(document.body.querySelectorAll('.message-item')).toHaveLength(2);
-    expect(document.body.querySelector('.message-item[role="alert"]')?.textContent).toContain('hello world');
-    expect(document.body.querySelector('.message-item[role="status"]')?.textContent).toContain('second message');
+    expect(document.body.querySelectorAll('.vue-popup-message_message-item')).toHaveLength(2);
+    expect(document.body.querySelector('.vue-popup-message_message-item[role="alert"]')?.textContent).toContain(
+      'hello world',
+    );
+    expect(document.body.querySelector('.vue-popup-message_message-item[role="status"]')?.textContent).toContain(
+      'second message',
+    );
   });
 
   test('Deletes expired message', async () => {
@@ -48,7 +52,7 @@ describe('Message Container', () => {
 
     expect(document.body.textContent).not.toContain('hello world');
     expect(document.body.textContent).toContain('second message');
-    expect(document.body.querySelectorAll('.message-item')).toHaveLength(1);
+    expect(document.body.querySelectorAll('.vue-popup-message_message-item')).toHaveLength(1);
   });
 
   test('Unmounting the container does not clear notifications', async () => {

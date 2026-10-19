@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 
-type MessageType = 'default' | 'success' | 'error' | 'warning' | 'info';
+type MessageType = 'default' | 'success' | 'error' | 'warning' | 'info' | 'loading';
 
 export interface Notification {
   id: string;
@@ -25,6 +25,7 @@ export interface MessageApi {
   error: (content: string, options?: MessageOptions) => string;
   warning: (content: string, options?: MessageOptions) => string;
   info: (content: string, options?: MessageOptions) => string;
+  loading: (content: string, options?: MessageOptions) => string;
 
   close(id: string): void;
   destroy: () => void;
