@@ -7,7 +7,12 @@ const { notifications } = notificationManager;
 <template>
   <Teleport to="body">
     <TransitionGroup name="list" tag="div" class="vue-popup-message_container">
-      <div class="message-item" v-for="notification in notifications" :key="notification.id">
+      <div
+        class="message-item"
+        v-for="notification in notifications"
+        :key="notification.id"
+        :role="notification.type === 'error' ? 'alert' : 'status'"
+      >
         {{ notification.content }}
       </div>
     </TransitionGroup>
@@ -16,7 +21,7 @@ const { notifications } = notificationManager;
 
 <style scoped>
 .vue-popup-message_container {
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);

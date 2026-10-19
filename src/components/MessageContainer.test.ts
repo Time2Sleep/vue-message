@@ -26,6 +26,8 @@ describe('Message Container', () => {
     expect(document.body.textContent).toContain('hello world');
     expect(document.body.textContent).toContain('second message');
     expect(document.body.querySelectorAll('.message-item')).toHaveLength(2);
+    expect(document.body.querySelector('.message-item[role="alert"]')?.textContent).toContain('hello world');
+    expect(document.body.querySelector('.message-item[role="status"]')?.textContent).toContain('second message');
   });
 
   test('Deletes expired message', async () => {

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import MessageContainer from './components/MessageContainer.vue';
 import { notificationManager } from './core/notificationManager';
-
-notificationManager.add({ content: 'test', type: 'error' });
 </script>
 
 <template>
