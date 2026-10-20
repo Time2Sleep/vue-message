@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { notificationManager } from '../core/notificationManager';
+import MessageItem from './MessageItem.vue';
 
 const { notifications } = notificationManager;
 </script>
@@ -7,14 +8,9 @@ const { notifications } = notificationManager;
 <template>
   <Teleport to="body">
     <TransitionGroup name="list" tag="div" class="vue-popup-message_container">
-      <div
-        class="message-item"
-        v-for="notification in notifications"
-        :key="notification.id"
-        :role="notification.type === 'error' ? 'alert' : 'status'"
-      >
+      <MessageItem v-for="notification in notifications" :key="notification.id" :notification="notification">
         {{ notification.content }}
-      </div>
+      </MessageItem>
     </TransitionGroup>
   </Teleport>
 </template>

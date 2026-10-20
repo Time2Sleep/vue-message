@@ -42,6 +42,14 @@ export const message: MessageApi = {
     });
   },
 
+  loading: (content: string, options?: MessageOptions): string => {
+    return notificationManager.add({
+      content,
+      type: 'loading',
+      duration: options?.duration,
+    });
+  },
+
   close: (id: string) => {
     notificationManager.remove(id);
   },
