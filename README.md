@@ -1,82 +1,133 @@
-# Simple Global Message Library
+# vue-message-popup
 
-A lightweight notification library for displaying global popup messages using a clean, declarative API like `message.info()`, `message.success()`, and `message.error()`.
+A lightweight notification library for Vue 3 with a simple global API for displaying popup messages.
 
-## ✨ Features
+```ts
+import { message } from 'vue-message-popup';
 
-- 🚀 Familiar and straightforward API: `message.info()`, `message.success()`, `message.error()`, `message.warning()`.
-- 📦 Minimal bundle size with zero heavy dependencies.
-- 🎨 Out-of-the-box clean and modern aesthetic.
-- ⏳ Automatic dismissal after a specified duration.
+message.success('Data saved successfully!');
+```
 
-## 📦 Installation
+## Features
 
-Install the library using your preferred package manager:
+- **Simple API** — display notifications anywhere in your application.
+- **Multiple notifications** — display several messages simultaneously.
+- **Automatic dismissal** — configurable duration for each notification.
+- **Manual control** — close individual notifications or dismiss all at once.
+- **Automatic styling** — styles are injected automatically; no separate CSS import is required.
+- **TypeScript support** — type definitions included.
+- **Vue 3** — designed for Vue 3 applications.
+
+## Installation
 
 ```bash
 npm install vue-message-popup
-# or
-yarn add vue-message-popup
-# or
-pnpm add vue-message-popup
 ```
 
-## 🚀 Usage
+Vue 3 is a peer dependency and must be available in your application.
 
-### 1. Import Styles
+## Quick start
 
-Import the library's CSS file at your application's entry point (e.g., `main.js` or `app.js`):
+Register the plugin once when creating your Vue application:
 
-```javascript
-import "vue-message-popup/dist/styles.css";
+```ts
+// main.ts
+import { createApp } from 'vue';
+import App from './App.vue';
+import { messagePlugin } from 'vue-message-popup';
+
+const app = createApp(App);
+
+app.use(messagePlugin);
+app.mount('#app');
 ```
 
-### 2. Method Invocations
+The plugin mounts the notification renderer automatically. You do not need to add a notification component to your application template or import a CSS file.
 
-Import the `message` object and call the methods directly anywhere in your code:
+## Usage
 
-```javascript
-import message from "vue-message-popup";
+Import `message` wherever you need to display a notification:
 
-// Basic info message
-message.info("This is a normal information message.");
+```ts
+import { message } from 'vue-message-popup';
 
-// Success message
-message.success("Data saved successfully!");
-
-// Error message
-message.error("An error occurred while loading data.");
-
-// Warning message
-message.warning("Please fill in all required fields.");
+message.show('Something happened.');
+message.info('Synchronization started.');
+message.success('Data saved successfully!');
+message.warning('Please check your input.');
+message.error('Failed to save data.');
+message.loading('Loading...');
 ```
 
-### ⚙️ Customization (Options)
+Each method returns a unique notification ID:
 
-You can pass a custom duration (in seconds) or a configuration object with a close callback:
+```ts
+const id = message.success('Profile updated!');
+```
 
-```javascript
-// Display an error message for 5 seconds
-message.error("Session expired", 5);
+### Custom duration
 
-// Using a config object with an onClose callback
-message.success("Action completed!", {
-  duration: 3,
-  onClose: () => {
-    console.log("The message panel has disappeared.");
-  },
+Pass an options object to customize how long a notification remains visible. The duration is specified in milliseconds.
+
+```ts
+// Display for 5 seconds
+message.success('Changes saved!', {
+  duration: 5000,
+});
+
+// Keep visible until manually closed
+const id = message.info('Waiting for confirmation.', {
+  duration: 0,
 });
 ```
 
-## 🛠 API Methods
+The default duration is **3000 milliseconds**. Setting `duration` to `0` disables automatic dismissal.
 
-| Method                                            | Description        | Arguments                                                  |
-| :------------------------------------------------ | :----------------- | :--------------------------------------------------------- |
-| `message.info(content, [duration], [onClose])`    | Information pop-up | `content: string`, `duration: number`, `onClose: function` |
-| `message.success(content, [duration], [onClose])` | Success pop-up     | `content: string`, `duration: number`, `onClose: function` |
-| `message.error(content, [duration], [onClose])`   | Error pop-up       | `content: string`, `duration: number`, `onClose: function` |
-| `message.warning(content, [duration], [onClose])` | Warning pop-up     | `content: string`, `duration: number`, `onClose: function` |
+### Close notifications
 
-## 📄 License
+Close a specific notification using its ID:
 
-MIT License
+```ts
+const id = message.info('Uploading...');
+
+message.close(id);
+```
+
+Dismiss all notifications:
+
+```ts
+message.destroy();
+```
+
+`message.destroy()` clears the active notifications. The notification system remains usable afterward.
+
+## API reference
+
+| Method                               | Description                            | Returns  |
+| ------------------------------------ | -------------------------------------- | -------- |
+| `message.show(content, options?)`    | Displays a default notification        | `string` |
+| `message.info(content, options?)`    | Displays an informational notification | `string` |
+| `message.success(content, options?)` | Displays a success notification        | `string` |
+| `message.warning(content, options?)` | Displays a warning notification        | `string` |
+| `message.error(content, options?)`   | Displays an error notification         | `string` |
+| `message.loading(content, options?)` | Displays a loading notification        | `string` |
+| `message.close(id)`                  | Closes a specific notification         | `void`   |
+| `message.destroy()`                  | Closes all active notifications        | `void`   |
+
+### Options
+
+```ts
+interface MessageOptions {
+  duration?: number;
+}
+```
+
+| Option     | Type     | Default | Description                                                               |
+| ---------- | -------- | ------- | ------------------------------------------------------------------------- |
+| `duration` | `number` | `3000`  | Display duration in milliseconds. Use `0` to disable automatic dismissal. |
+
+Negative and non-finite duration values are rejected with a `RangeError`.
+
+## License
+
+[MIT](LICENSE)

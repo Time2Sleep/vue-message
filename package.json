@@ -1,22 +1,43 @@
 {
   "name": "vue-message-popup",
-  "private": true,
   "version": "0.1.0",
+  "type": "module",
   "author": {
     "name": "Zaripov Airat",
     "email": "omg.airat@gmail.com"
   },
-  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/index.cjs"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && vite build && vue-tsc -p tsconfig.build.json",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest"
+    "test": "vitest",
+    "test:run": "vitest run"
   },
-  "dependencies": {
-    "vue": "^3.5.42"
+  "peerDependencies": {
+    "vue": "^3.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -31,7 +52,9 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.67.0",
     "vite": "^8.3.0",
+    "vite-plugin-css-injected-by-js": "^5.0.2",
     "vitest": "^5.0.5",
+    "vue": "^3.5.42",
     "vue-eslint-parser": "^10.4.1",
     "vue-tsc": "^3.3.11"
   }
