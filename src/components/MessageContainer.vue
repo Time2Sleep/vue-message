@@ -21,6 +21,17 @@ const { notifications } = notificationManager;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
+  z-index: 10000;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.25s ease-in-out;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-100px);
 }
 </style>
