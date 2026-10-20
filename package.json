@@ -1,6 +1,11 @@
 {
   "name": "vue-message-popup",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Time2Sleep/vue-message.git"
+  },
+  "homepage": "https://github.com/Time2Sleep/vue-message#readme",
   "type": "module",
   "author": {
     "name": "Zaripov Airat",

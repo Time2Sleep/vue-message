@@ -1,3 +1,5 @@
+[![npm version](https://img.shields.io/npm/v/vue-message-popup)](https://www.npmjs.com/package/vue-message-popup)
+
 # vue-message-popup
 
 A lightweight notification library for Vue 3 with a simple global API for displaying popup messages.
